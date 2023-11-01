@@ -33,7 +33,7 @@ export const ScrollToTop = () => {
 
   if (location.pathname === "/") {
     return (
-      <div className="fixed bottom-3 right-3 z-20">
+      <div className="fixed bottom-3 right-3 z-30">
         <button
           type="button"
           onClick={scrollToTop}

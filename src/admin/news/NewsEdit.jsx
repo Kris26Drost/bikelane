@@ -9,7 +9,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 const NewsEdit = () => {
-  const { newsID } = useParams(); // gets the newsID from the URL
+  const { eventsID } = useParams(); // gets the newsID from the URL
   const Navigate = useNavigate();
 
   // GET (to show the current news)
@@ -34,14 +34,14 @@ const NewsEdit = () => {
 
   // }, []);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    const fd = new FormData(event.target);
+    const fd = new FormData(e.target);
     fd.append("content", refQuill.current.value); // adds content to the quill
 
     // Make a PUT  request to your server with the form data
-    makeRequestEdit("news/admin/" + newsID, null, null, "PUT", fd);
+    makeRequestEdit("events/admin/" + eventsID, null, null, "PUT", fd);
   };
 
   // Redirect to the news admin page when the news has been updated
@@ -58,18 +58,18 @@ const NewsEdit = () => {
     // if theres no ! in front of dataEdit, it will redirect to the news admin page when the news has been updated
     if (!dataEdit) {
       //    makeRequest("news/" + newsID);
-      makeRequest(`news/${newsID}`);
+      makeRequest(`events/${eventsID}`);
     } else if (dataEdit) {
       Navigate("/admin/newsadmin");
     }
-  }, [dataEdit, newsID]);
+  }, [dataEdit, eventsID]);
 
   return (
     <div>
       {error && <Error errorMessage="Admin Nyheder" />}
       {loading && <Loader />}
 
-      <h1 className="text-3xl font-semibold"> Ret nyhed - {newsID} </h1>
+      <h1 className="text-3xl font-semibold"> Ret event - {eventsID} </h1>
 
       {data && (
         <form onSubmit={handleSubmit}>
@@ -103,7 +103,7 @@ const NewsEdit = () => {
           <div>
             <p>Nuværende billede:</p>
             <img
-              src={import.meta.env.VITE_IMGPATH + "news/" + data.image}
+              src={"http://localhost:5888/images/event/" + data.image}
               alt="Nyhedens billede"
               width="150"
             />
@@ -117,7 +117,7 @@ const NewsEdit = () => {
           </div>
 
           <button
-            className="bg-safety-orange-blaze-orange text-white cursor-pointer p-2 rounded"
+            className="bg-primary text-white cursor-pointer p-2 rounded"
             type="submit"
           >
             Submit

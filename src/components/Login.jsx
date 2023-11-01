@@ -17,8 +17,8 @@ const Login = () => {
   };
 
   return (
-    <div className="mx-auto max-w-md p-5 bg-white rounded-lg border-2 border-cultured m-10">
-      <h1 className="text-3xl font-semiboldp p-5 text-center">Login</h1>
+    <div className="mx-auto max-w-md p-3 bg-white rounded-lg border-2 border-cultured my-40">
+      <h1 className="text-3xl font-semiboldp m-10 text-center">Login</h1>
       <div className="container">
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="flex flex-col">
@@ -48,12 +48,15 @@ const Login = () => {
           <div className="flex justify-end">
           <button
             type="submit"
-            className="bg-safety-orange-blaze-orange text-white cursor-pointer p-2 px-3 rounded "
+            className="bg-primary text-white cursor-pointer p-2 px-3 rounded "
           >
             Login
           </button>
           </div>
         </form>
+      </div>
+      <div className="flex justify-end m-1 text-sm">
+        <p className="italic text-silver">Login for at kom ind på admin sidden</p>
       </div>
     </div>
   );

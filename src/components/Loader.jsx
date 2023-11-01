@@ -1,5 +1,5 @@
 import React from "react";
-import { ClipLoader } from "react-spinners";
+import { MoonLoader } from "react-spinners";
 
 const Loader = () => {
   return ( 
@@ -12,9 +12,9 @@ const Loader = () => {
       items-center 
     "
     >
-      <ClipLoader
+      <MoonLoader
         size={100}
-        color="rgba(255, 102, 0, 1"
+        color="rgb(212, 93, 121)"
       />
     </div>
    );

@@ -1,5 +1,5 @@
 
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Layout from "./layout/Layout";
 import LayoutAdmin from "./admin/layout/LayoutAdmin";
@@ -19,6 +19,7 @@ import NewsCreate from "./admin/news/NewsCreate";
 import NewsEdit from "./admin/news/NewsEdit";
 // import NDetail from "./components/news/NDetail";
 import AboutAdmin from "./admin/about/AboutAdmin";
+import GoalsPut from "./admin/about/GoalsPut";
 // import SearchResult from "./components/SearchResult";
 
 
@@ -36,11 +37,8 @@ const App = () => {
           <Route path="about" element={<About />} />
           <Route path="events" element={<Events />} />
           <Route path="news" element={<Nyheder />} />
-          <Route path="news/:id" element={<NewsDetail />} />
+          <Route path="news/events/:eventID" element={<NewsDetail />} />
           <Route path="contact" element={<Kontakt />} />
-          
-          {/* <Route path="search/:searchkey" element={<SearchResult />} />
-          <Route path="search" element={<SearchResult />} /> */}
 
           <Route path="login" element={<Login />} />
           <Route path="*" element={<NoMatch />} /> 
@@ -49,11 +47,12 @@ const App = () => {
         {/* Admin Section */}
         <Route path="/admin" element={<LayoutAdmin />}>
           <Route index element={<AdminHome />} />
-          {/* <Route path="newsadmin" element={<NewsAdmin />} />
-          <Route path="newsadmin/create" element={<NewsCreate />} />
-          <Route path="newsadmin/edit/:newsID" element={<NewsEdit />} />
-          <Route path="newsadmin/:newsID" element={<NDetail />} />
-          <Route path="aboutadmin" element={<AboutAdmin />} /> */}
+           <Route path="eventsadmin" element={<NewsAdmin />} />
+          <Route path="eventsadmin/create" element={<NewsCreate />} />
+          <Route path="eventsadmin/edit/:eventsID" element={<NewsEdit />} />
+         {/* <Route path="newsadmin/:newsID" element={<NDetail />} />*/}
+          <Route path="goalsadmin" element={<AboutAdmin />} /> 
+          <Route path="goalsadmin/edit/:goalsID" element={<GoalsPut />} />
            <Route path="*" element={<NoMatch />} /> 
         </Route>
       </Routes>

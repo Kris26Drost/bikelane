@@ -10,8 +10,11 @@ import Loader from "../components/Loader";
 import "../../node_modules/font-awesome/css/font-awesome.min.css";
 
 import { ImLocation } from "react-icons/im";
-import { FiClock, FiPhone } from "react-icons/fi";
+import { FiClock } from "react-icons/fi";
 import { FaUser } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+
+
 
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -68,7 +71,7 @@ const Header = () => {
                   <p className="ml-2">{data.openinghours}</p>
                 </div>
                 <div className="flex items-center">
-                  <FiPhone className="text-safety-orange-blaze-orange" />
+                  <MdEmail className="text-safety-orange-blaze-orange" />
                   <p className="ml-2">{data.email}</p>
                 </div>
 

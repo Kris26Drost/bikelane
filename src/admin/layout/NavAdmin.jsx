@@ -11,10 +11,10 @@ const NavAdmin = () => {
   };
 
   return (
-    <nav className="bg-white fixed z-30 top-[8%] left-1/2 shadow-lg p-5 rounded-md transform -translate-x-1/2">
+    <nav className="bg-white w-full  z-30 shadow-lg p-5 rounded-md">
       <div className="mx-auto flex justify-between items-center">
         {/* Navigation Links */}
-        <menu className="space-x-5">
+        <menu className="space-x-5 flex justify-center items-center">
           <NavLink
             to="/"
             className={({ isActive }) =>
@@ -34,20 +34,20 @@ const NavAdmin = () => {
           </NavLink>
 
           <NavLink
-            to="newsadmin"
+            to="eventsadmin"
             className={({ isActive }) =>
               isActive ? "text-safety-orange-blaze-orange" : "text-black"
             }
           >
-            Opret/Ret/Slet - News
+            Opret/Ret/Slet -  Events
           </NavLink>
           <NavLink
-            to="aboutadmin"
+            to="goalsadmin"
             className={({ isActive }) =>
               isActive ? "text-safety-orange-blaze-orange" : "text-black"
             }
           >
-            OM OS - PUT
+            Ret - Goals 
           </NavLink>
         </menu>
 

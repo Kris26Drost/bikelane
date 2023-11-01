@@ -36,16 +36,18 @@ const HvemViEr = () => {
               <img
                 src={"http://localhost:5888/images/testimonial/" + t.image}
                 alt={t.name}
-                className="w-full h-auto rounded-lg"
+                className="w-full h-full rounded-lg"
               />
 
               <div className="bg-white relative bottom-[10%] shadow-md mb-5 hover:shadow-xl z-10">
-                <div className="absolute mx-5 bg-white rounded-lg shadow-lg">
+                <div className="absolute mx-5 bg-white rounded-lg shadow-lg overflow-hidden">
                   <div className="p-5">
                     <div className="relative h-auto">
                       <h3 className="text-xl">{t.name}</h3>
                       <p className="text-primary text-md">{t.experience}</p>
                       <p className="italic">{t.motivation}</p>
+                      <div className="rounded-full w-10 h-10 bg-primary opacity-60 absolute top-30 -right-10"/>
+                      <div className="rounded-full w-10 h-20 bg-primary opacity-40 absolute top-20 -right-10 z-1"/>
                     </div>
                   </div>
                 </div>

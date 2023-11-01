@@ -65,9 +65,9 @@ const VoresMaal = () => {
                   style={{ backgroundImage: "url(./images/bg1.jpg)" }}
                 >
                   {dataGoals &&
-                    dataGoals.map((g) => {
+                    dataGoals.map((g, i) => {
                       return (
-                        <div className="flex items-center justify-center m-10">
+                        <div className="flex items-center justify-center m-10" key={i}>
                           <div
                             className="grid-cols grid w-1/4 h-full"
                             key={g._id}

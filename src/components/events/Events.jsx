@@ -6,6 +6,7 @@ import Title from "../Title";
 
 const Events = () => {
   const { data, loading, error, makeRequest } = useRequestData();
+
   const {
     data: dataEvents,
     loading: loadingEvents,
@@ -32,6 +33,8 @@ const Events = () => {
     makeRequestEvents("events");
   }, []);
 
+  const [category, setCategory] = useState('');
+  const currentDate = new Date();
   const [itemsPerPage, setItemsPerPage] = useState(9); // amount of news to show per page
   const [currentPage, setCurrentPage] = useState(0); // current page number
 
@@ -45,34 +48,42 @@ const Events = () => {
             <Title headline="Events" />
             <h1 className="text-3xl font-bold">{data[6].title}</h1>
             <div className="flex items-center justify-center">
-              {dataEventCategory &&
-                dataEventCategory.map((e) => {
-                  return (
-                    <div className="flex" key={e._id}>
-                      <ul>
-                        <li className="hover:text-primary m-2 cursor-pointer">
-                          {e.category}
+              <div>
+                <ul className="flex">
+                  {dataEventCategory &&
+                    dataEventCategory
+                      .slice()
+                      .reverse()
+                      .map((ec) => (
+                        <li
+                          onClick={() => setCategory(ec.category)}
+                          className="hover:text-primary m-2 cursor-pointer"
+                          key={ec._id}
+                        >
+                          {ec.category}
                         </li>
-                      </ul>
-                    </div>
-                  );
-                })}
+                      ))}
+                  <li
+                    className="hover:text-primary m-2 cursor-pointer"
+                    onClick={() => setCategory("")}
+                  >
+                    Fjern filter
+                  </li>
+                </ul>
+              </div>
             </div>
             <div className="flex flex-wrap m-4">
               {dataEvents &&
                 dataEvents
-                  .sort((a, b) => new Date(b.received) - new Date(a.received))
-                  .slice(
-                    currentPage * itemsPerPage,
-                    currentPage * itemsPerPage + itemsPerPage
-                  )
+                  
+                  .filter(e => new Date(e.eventdate) > currentDate)
+                  .filter(e => category === '' || e.category.category === category)
+                  .sort((a, b) => new Date(b.evendate) - new Date(a.eventdate))
                   .map((c, i) => {
                     return (
                       <article className="w-1/3 p-5 pl-0" key={i}>
                         <img
-                          src={
-                            "http://localhost:5888/images/" + "event/" + c.image
-                          }
+                          src={"http://localhost:5888/images/event/" + c.image}
                           alt={c.category.category}
                           className="w-full h-auto rounded-lg"
                         />
@@ -94,11 +105,7 @@ const Events = () => {
                         <div className="flex">
                           <h3 className="text-xl font-bold">{c.title}</h3>
                         </div>
-
-                        
                       </article>
-
-                      
                     );
                   })}
             </div>

@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import useRequestData from "../../hooks/useRequestData";
 import { Link } from "react-router-dom";
-import { FaUser } from "react-icons/fa";
 import NavAdmin from "./NavAdmin";
 import SignoutBtn from "../../components/SignoutBtn";
 
+import "../../../node_modules/font-awesome/css/font-awesome.min.css";
+
+import { ImLocation } from "react-icons/im";
+import { FiClock } from "react-icons/fi";
+import { FaUser } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+
 const Header = () => {
-  const [contactInfo, setContactInfo] = useState({});
   const [isMobile, setIsMobile] = useState(false);
 
+  const { data, loading, error, makeRequest } = useRequestData();
+
   useEffect(() => {
-    axios
-      .get("http://localhost:5333/contactinformation")
-      .then((res) => {
-        setContactInfo(res.data);
-      })
-      .catch((error) => {
-        console.log("Error fetching contact info", error);
-      });
+    makeRequest("contactinformation");
   }, []);
 
   // Check if the screen width is less than a certain threshold to determine if it's a mobile screen
@@ -36,22 +36,49 @@ const Header = () => {
 
   return (
     <>
-      {contactInfo && (
-        <header className="bg-onyx text-white p-5">
-          <div className="max-w-screen-xl mx-auto flex items-center justify-between">
-            <div>
-              <Link to="/admin">
-                <img src={"./images/logo.png"} alt="Stroem logo" />
-              </Link>
-            </div>
+      {data && (
+        <header className="text-secondary px-5 py-10">
+          <div className="flex items-center justify-between max-w-screen-xl mx-auto">
+            {isMobile ? (
+              // Render mobile layout
+              <div className="lg:hidden flex items-center">
+                <ImLocation className="text-safety-orange-blaze-orange" />
+                <p className="ml-2">
+                  Klubuset: {data.address},{data.zipcity}
+                </p>
+              </div>
+            ) : (
+              // Render desktop layout
+              <div className="lg:flex hidden space-x-4">
+                <div className="flex items-center">
+                  <ImLocation className="text-safety-orange-blaze-orange" />
+                  <p className="ml-2">
+                    Klubuset: {data.address}, {data.zipcity}
+                  </p>
+                </div>
+                <div className="flex items-center">
+                  <FiClock className="text-safety-orange-blaze-orange" />
+                  <p className="ml-2">{data.openinghours}</p>
+                </div>
+                <div className="flex items-center">
+                  <MdEmail className="text-safety-orange-blaze-orange" />
+                  <p className="ml-2">{data.email}</p>
+                </div>
 
-           
-              
-              <div className="hidden lg:flex space-x-4">
-               
                 <SignoutBtn />
               </div>
-           
+            )}
+
+            <div>
+              {data.some.map((icons) => (
+                <Link to={icons.link} key={icons._id}>
+                  <span
+                    className={"fa " + icons.icon}
+                    style={{ margin: "0 10px 0 10px" }}
+                  ></span>
+                </Link>
+              ))}
+            </div>
           </div>
         </header>
       )}

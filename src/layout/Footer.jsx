@@ -28,7 +28,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-gradient-to-r from-secondary to-blue text-silver text-platinum">
+    <footer className="bg-gradient-to-r from-secondary to-blue text-silver">
       {error && <Error />}
       {loading && <Loader />}
       <div className="px-40" style={{ backgroundImage: "url(./images/contour.png)" }}>

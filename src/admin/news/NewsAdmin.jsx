@@ -23,24 +23,24 @@ const NewsAdmin = () => {
   } = useRequestData();
 
   useEffect(() => {
-    makeRequest("news");
+    makeRequest("events");
   }, [dataDelete]);
 
-  const handleDelete = (newsID, newsTitle) => {
-    console.log("Nyhed der skal slettes:" + newsID);
+  const handleDelete = (eventID, eventTitle) => {
+    console.log("Nyhed der skal slettes:" + eventID);
     if (
       window.confirm(
-        "Er du sikker på at du vil slette denne nyhed:" + newsTitle
+        "Er du sikker på at du vil slette denne nyhed:" + eventTitle
       )
     ) {
-      makeRequestDelete("news/admin/" + newsID, null, null, "DELETE");
+      makeRequestDelete("events/admin/" + eventID, null, null, "DELETE");
     }
   };
 
   return (
     <div>
       <div className="bg-cultured p-10">
-        <h1 className="text-3xl font-semibold">Administrerer nyheder</h1>
+        <h1 className="text-3xl font-semibold">Administrerer Events</h1>
       </div>
       {(error || errorDelete) && <Error errorMessage="Admin Nyheder" />}
       {(loading || loadingDelete) && <Loader />}
@@ -53,8 +53,8 @@ const NewsAdmin = () => {
               <th></th>
               <th>
                 <Link
-                  to="/admin/newsadmin/create"
-                  className="text-safety-orange-blaze-orange cursor-pointer rounded p-3 flex items-center w-1/2"
+                  to={"/admin/newsadmin/create"}
+                  className="text-primary cursor-pointer rounded p-3 flex items-center w-1/2"
                 >
                   <FaPlus className="mr-2" /> Opret ny
                 </Link>
@@ -70,13 +70,13 @@ const NewsAdmin = () => {
 
           <tbody>
             {data &&
-              data.map((news) => (
-                <tr key={news._id} className="hover:bg-cultured border-b">
-                  <td className="p-2">{news.title}</td>
+              data.map((event) => (
+                <tr key={event._id} className="hover:bg-cultured border-b">
+                  <td className="p-2"> {event.title}</td>
 
                   <td className="p-2">
                     <Link
-                      to={"/admin/newsadmin/edit/" + news._id}
+                      to={"/admin/newsadmin/edit/" + event._id}
                       className="cursor-pointer rounded p-3 flex items-center"
                     >
                       <FaEdit
@@ -87,7 +87,7 @@ const NewsAdmin = () => {
                   </td>
                   <td className="p-2">
                     <FaTrash
-                      onClick={() => handleDelete(news._id, news.title)}
+                      onClick={() => handleDelete(event._id, event.title)}
                       className="hover:text-safety-orange-blaze-orange cursor-pointer"
                       style={{ fontSize: "2em" }}
                     />

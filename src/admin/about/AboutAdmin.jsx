@@ -1,11 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
+import useRequestData from "../../hooks/useRequestData";
+import { Link } from "react-router-dom";
 import Error from "../../components/Error";
 import Loader from "../../components/Loader";
-import useRequestData from "../../hooks/useRequestData";
 
-//quill
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+//icons
+import { FaEdit } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AboutAdmin = () => {
   // GET (to show the current ABOUT)
@@ -20,101 +21,57 @@ const AboutAdmin = () => {
   } = useRequestData();
 
   useEffect(() => {
-    // GET about data
-    makeRequest("about");
+    makeRequest("goals");
   }, [dataEdit]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const fd = new FormData(event.target);
-    fd.append("content", refQuill.current.value); // adds content to the quill
-
-    // Make a PUT request to your server with the form data
-    makeRequestEdit("about/admin/", null, null, "PUT", fd);
-  };
-
-   // reference to quill
-   const refQuill = useRef();
-   const toolbarOptions = [["bold", "italic", "underline", "strike"],[{ list: "ordered" }, { list: "bullet" }]];
+  useEffect((goalsID) => {
+    makeRequestEdit("goals/admin/" + goalsID, null, null, "PUT");
+  }, [dataEdit]);
 
   return (
     <div>
-      <h1 className="text-3xl font-semibold">Ret "Om Os"</h1>
-      {error || errorEdit && <Error />}
-      {loading || loadingEdit && <Loader />}
-      {data &&
+      <div className="bg-cultured p-10">
+        <h1 className="text-3xl font-semibold">Administrerer Goals</h1>
+      </div>
+      {(error || errorEdit) && <Error errorMessage="Admin Nyheder" />}
+      {(loading || loadingEdit) && <Loader />}
 
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label>
-            Titel
-            <input
-              type="text"
-              defaultValue={data.title}
-              name="title"
-              placeholder="Udfyld overskrift/titel"
-              className="mt-1 p-2 w-full border rounded"
-              required
-            />
-          </label>
-        </div>
+      <div className="flex items-center justify-center m-5 table-auto">
+        <table className="w-full text-sm text-left">
+          <thead className="bg-gray-50 text-xs text-gray-700 uppercase">
+            <tr>
+              <th className="p-2">Goal</th>
+              <th className="p-2">Goalnumber</th>
+              <th className="p-2">Icon</th>
+              <th className="p-2">Ret</th>
+            </tr>
+          </thead>
 
-        <div className="mb-4">
-          <label>
-            Teaser tekst
-            <input
-              type="text"
-              defaultValue={data.teaser}
-              name="teaser"
-              placeholder="Udfyld teaser-tekst"
-              className="mt-1 p-2 w-full border rounded"
-              required
-            />
-          </label>
-        </div>
-
-        <div className="mb-4">
-          <label>
-            Beskrivelse
-           
-              <ReactQuill
-                defaultValue={data.content}
-                theme="snow"
-                placeholder="Udfyld teksten"
-                ref={refQuill}
-                modules={{ toolbar: toolbarOptions }}
-              />
-          </label>
-        </div>
-
-        <figure>
-            <figcaption>Nuværende billede:</figcaption>
-            <img
-              src={import.meta.env.VITE_IMGPATH + "about/" + data.image}
-              alt="About billede"
-              width="300"
-            />
-          </figure>
-
-        <div className="mb-4">
-          <label>
-            Vælg et billede (overskriver det nuværende) 
-            <input
-              type="file"
-              name="image"
-              className="mt-1 p-2 w-full"
-            />
-          </label>
-        </div>
-        <button
-          className="bg-safety-orange-blaze-orange text-white cursor-pointer p-2 rounded"
-          type="submit"
-        >
-          Submit
-        </button>
-      </form>
-      }
+          <tbody>
+            {data &&
+              data.map((goal) => (
+                <tr key={goal._id} className="hover:bg-cultured border-b">
+                  <td className="p-2"> {goal.goal}</td>
+                  <td className="p-2">{goal.goalcount}</td>
+                  <td className="p-2">
+                    <FontAwesomeIcon icon={goal.icon}/>
+                    </td>
+                  <td className="p-2">
+                    <Link
+                      to={"/admin/goalsadmin/edit/" + goal._id}
+                      className="flex items-center p-3 rounded cursor-pointer"
+                    >
+                      <FaEdit
+                        className="hover:text-safety-orange-blaze-orange cursor-pointer"
+                        style={{ fontSize: "2em" }}
+                      />
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

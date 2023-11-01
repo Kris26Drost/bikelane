@@ -1,62 +1,61 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+import useRequestData from "../../hooks/useRequestData";
 import { useParams } from "react-router-dom";
-import Latestnews from "./Latestnews";
-import Comments from "./comments"; // Import the Comments component
-import Title from "../Title";
+import Loader from "../Loader";
+import Error from "../Error";
+import Parse from "html-react-parser";
 
 const NewsDetail = () => {
-  const { id } = useParams(); // Get the news ID from the URL
-  const [newsDetail, setNewsDetail] = useState(null);
+  const { eventID } = useParams();
+
+  const { data, loading, error, makeRequest } = useRequestData();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5333/news/${id}`)
-      .then((res) => {
-        setNewsDetail(res.data);
-      })
-      .catch((error) => {
-        console.log("Error fetching news details", error);
-      });
-  }, [id]);
-
-  if (!newsDetail) {
-    // Handle loading state here
-    return <div>Loading...</div>;
-  }
+    makeRequest("events/" + eventID);
+  }, []);
 
   return (
-    <div>
-       <Title headline={newsDetail.title} />
-      <div className="container">
-        <div className="flex flex-wrap">
-          <div className="w-full md:w-1/2 p-5">
-            <div className="bg-white rounded-lg shadow-lg">
-              <img
-                src={import.meta.env.VITE_IMGPATH + "news/" + newsDetail.image}
-                alt={newsDetail.title}
-                className="w-full h-auto rounded-t-lg"
-              />
-              <div className="p-3 md:p-5">
-                <h2 className="text-2xl font-semibold">{newsDetail.title}</h2>
-                <p className="text-gray-400 text-xs md:text-sm mt-4">
-                  {newsDetail.content}
+    <section>
+      {loading && <Loader />}
+      {error && <Error />}
+      {data && (
+        <div className="container pt-40">
+          <div>
+            <div className="flex p-5">
+              <div className="w-full h-full">
+                <img
+                  src={"http://localhost:5888/images/event/" + data.image}
+                  alt={data.title}
+                  className="rounded-lg shadow-lg"
+                />
+              </div>
+              <div className="md:p-5 p-3">
+                <div className="flex justify-between">
+                  <h2 className="m-2 text-3xl font-semibold text-center">
+                    {data.title}
+                  </h2>
+                  
+                    <time className="flex">
+                      {new Date(data.eventdate).toLocaleDateString("da-DK", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </time>
+                    
+                  
+                </div>
+                <p className=" whitespace-break-spaces md:text-sm text-dim-gray mt-4 text-xs">
+                  {Parse(data.content)}
                 </p>
               </div>
             </div>
           </div>
-          <div className="w-full md:w-1/2 p-5">
-            <Latestnews />
-          </div>
         </div>
-        <div className="p-5">
-          <h3 className="text-xl font-semibold">
-            Kommentar({newsDetail.comments?.length})
-          </h3>
-          <Comments newsId={id} />
-        </div>
-      </div>
-    </div>
+      )}
+    </section>
   );
 };
 
