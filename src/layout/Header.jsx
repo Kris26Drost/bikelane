@@ -9,9 +9,8 @@ import Loader from "../components/Loader";
 
 import "../../node_modules/font-awesome/css/font-awesome.min.css";
 
-import { ImLocation } from "react-icons/im";
 import { FiClock } from "react-icons/fi";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaRegBuilding } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
 
@@ -47,21 +46,18 @@ const Header = () => {
       {error && <Error />}
       {loading && <Loader />}
       {data && (
-        <header className="text-secondary px-5 py-10">
+        <header className="text-secondary px-5 py-10 absolute container">
           <div className="max-w-screen-xl mx-auto flex items-center justify-between">
             {isMobile ? (
               // Render mobile layout
               <div className="lg:hidden flex items-center">
-                <ImLocation className="text-safety-orange-blaze-orange" />
-                <p className="ml-2">
-                  Klubuset: {data.address},{data.zipcity}
-                </p>
+              
               </div>
             ) : (
               // Render desktop layout
               <div className="hidden lg:flex space-x-4">
                 <div className="flex items-center">
-                  <ImLocation className="text-safety-orange-blaze-orange" />
+                  <FaRegBuilding className="text-safety-orange-blaze-orange" />
                   <p className="ml-2">
                     Klubuset: {data.address}, {data.zipcity}
                   </p>
@@ -88,9 +84,9 @@ const Header = () => {
               </div>
             )}
 
-            <div>
+            <div className="hidden lg:flex">
               {data.some.map((icons) => (
-                <Link to={icons.link} key={icons._id}>
+                <Link to={icons.link} key={icons._id} className="hover:text-primary">
                   <span
                     className={"fa " + icons.icon}
                     style={{ margin: "0 10px 0 10px"}}

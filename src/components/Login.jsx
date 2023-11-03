@@ -17,9 +17,10 @@ const Login = () => {
   };
 
   return (
-    <div className="mx-auto max-w-md p-3 bg-white rounded-lg border-2 border-cultured my-40">
+    <section className="md:pt-60 pb-40 md:p-10 p-5">
+    <div className="mx-auto max-w-md p-3 bg-white rounded-lg border-2  ">
       <h1 className="text-3xl font-semiboldp m-10 text-center">Login</h1>
-      <div className="container">
+      <div className="md:container">
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="flex flex-col">
             <label>
@@ -58,7 +59,7 @@ const Login = () => {
       <div className="flex justify-end m-1 text-sm">
         <p className="italic text-silver">Login for at kom ind på admin sidden</p>
       </div>
-    </div>
+    </div></section>
   );
 };
 

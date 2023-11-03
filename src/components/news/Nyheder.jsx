@@ -18,8 +18,10 @@ const Nyheder = () => {
   const [currentPage, setCurrentPage] = useState(0); // current page number
 
   useEffect(() => {
-    makeRequest("events");
+    makeRequest("events")
   }, []);
+
+  
 
   // Function to handle expanding/collapsing news
   const handleExpandNews = (events) => {
@@ -32,13 +34,12 @@ const Nyheder = () => {
 
   return (
     <section
-      className="bg-gradient-to-l from-blue to-primary pt-20"
+      className="bg-gradient-to-l from-blue to-primary pt-60"
       style={{ backgroundImage: "url(./images/bg2.jpg)" }}
     >
-      <Title headline="Vores Nyheder" />
       {error && <Error />}
       {loading && <Loader />}
-
+      
       <div className="md:flex-row container flex flex-col">
         <div className="md:grid-cols-2 lg:grid-cols-4 grid w-full gap-4 p-5 pl-0">
           {data &&
@@ -87,6 +88,7 @@ const Nyheder = () => {
                   <div className="p-3">
                     <h5 className="text-lg font-semibold">{data.title}</h5>
                     <hr className=" p-3" />
+                    <h4 className="text-primary font-semibold tet-3xl">Forfatter: Peder Jensen</h4>
                     {expandedNews === data._id ? (
                       <div className="md:text-sm text-dim-gray text-xs">
                         {parse(data.content)}
@@ -117,7 +119,7 @@ const Nyheder = () => {
 
       {/* Pagination Prev and Next with number of pages  */}
       {data && (
-        <div className="white-space">
+        <div className="white-space container">
           <button
             className=" px-4 py-2 text-black bg-white border-2 border-gray-200 rounded-md"
             disabled={currentPage <= 0}

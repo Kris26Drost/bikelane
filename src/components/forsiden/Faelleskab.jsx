@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useRequestData from "../../hooks/useRequestData";
 import Error from "../Error";
 import Loader from "../Loader";
 import Title from "../Title";
+
+import { BsCheckLg } from "react-icons/bs";
 
 const Faelleskab = () => {
   const { data, loading, error, makeRequest } = useRequestData();
@@ -12,42 +14,47 @@ const Faelleskab = () => {
   }, []);
 
   return (
-    <section>
+    <section className="md:container">
       {error && <Error />}
       {loading && <Loader />}
       {data && (
-        <div className="container flex">
-          <div className="md:grid-cols-12 grid-cols-4 m-4">
-            <img
-              src={"http://localhost:5888/images/community/" + data.image1}
-              className=" rounded-lg"
-            />
-            <img
-              src={"http://localhost:5888/images/community/" + data.image3}
-              className="mt-10 rounded-lg"
-            />
-          </div>
-          <div className="md:grid-cols-12 grid-cols-4 m-4">
-            <img
-              src={"http://localhost:5888/images/community/" + data.image2}
-              className="rounded-lg"
-            />
-            <img
-              src={"http://localhost:5888/images/community/" + data.image4}
-              className="mt-10 rounded-lg"
-            />
+        <div className="md:container md:flex flex-none my-10">
+          <div className=" flex">
+            <div className=" md:grid-cols-12 md:m-4 grid-cols-2  m-2">
+              <img
+                src={"http://localhost:5888/images/community/" + data.image1}
+                className=" rounded-lg"
+              />
+              <img
+                src={"http://localhost:5888/images/community/" + data.image3}
+                className="md:mt-10 mt-4 rounded-lg"
+              />
+            </div>
+            <div className="md:grid-cols-12 md:m-4 grid-cols-6 m-2">
+              <img
+                src={"http://localhost:5888/images/community/" + data.image2}
+                className="rounded-lg"
+              />
+              <img
+                src={"http://localhost:5888/images/community/" + data.image4}
+                className="md:mt-10 mt-4 rounded-lg"
+              />
+            </div>
           </div>
 
-          <div>
+          <div className="">
             <Title headline="Fælleskab!" />
             <h2 className="text-3xl font-bold">{data.title}</h2>
             <p className="font-semibold">{data.content}</p>
 
-            <div className="grid grid-cols-2 gap-10 mt-10">
+            <div className="md:grid-cols-2 grid gap-10 mt-10">
               {data.keypoints.map((kp) => (
                 <div key={kp._id} className="flex">
-                  <div >
-                    <p>{kp.keypoint}</p>
+                  <div className="flex items-center">
+                    <span className="bg-primary text-primary bg-opacity-30 p-1 m-2 rounded-full">
+                      <BsCheckLg />
+                    </span>
+                    <p> {kp.keypoint}</p>
                   </div>
                 </div>
               ))}

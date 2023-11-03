@@ -1,19 +1,54 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import useRequestData from "../hooks/useRequestData";
 import { NavLink, Link } from "react-router-dom";
 import SignoutBtn from "../components/SignoutBtn";
 import { LoginContext } from "../context/LoginContext";
 
 const Navbar = () => {
+  
+  const [category, setCategory] = useState("");
+
   // Get the user from the LoginContext
   const { user } = useContext(LoginContext);
 
   const [showBurgerMenu, setShowBurgerMenu] = useState(false);
 
+  const {
+    data,
+    loading,
+    error,
+    makeRequest
+  } = useRequestData();
+
+  const {
+    data: dataEvents,
+    loading: loadingEvents,
+    error: errorEvents,
+    makeRequest: makeRequestEvents,
+  } = useRequestData();
+
+  useEffect(() => {
+    makeRequest("eventcategories");
+  }, []);
+
+  useEffect(() => {
+    makeRequestEvents("events");
+  }, []);
+
   return (
-    <nav className="bg-white shadow-md rounded-lg fixed z-30 top-[13%] w-[80%] mx-auto left-1/2 transform -translate-x-1/2">
+    <nav className=" bg-white shadow-md rounded-lg fixed z-30 md:top-[13%] top-3 md:w-[80%] w-[90%] md:mx-auto md:left-1/2 left-4 md:transform md:-translate-x-1/2">
       {/* Mobile Menu (Burger Menu) */}
-      <div className="lg:hidden flex items-center">
-        <div className="bg-onyx p-5 rounded">
+      <div className="lg:hidden items-center">
+        <div className="flex justify-between bg-white p-5 rounded">
+        <Link to="/">
+              <figure>
+                <img
+                  src="./images/logo-black.png"
+                  alt="Bikelane Logo"
+                  className="w-[100px]"
+                />
+              </figure>
+            </Link>
           <button
             onClick={() => setShowBurgerMenu(!showBurgerMenu)}
             className="text-safety-orange-blaze-orange hover:text-safety-orange-dark-orange focus:outline-none block"
@@ -81,7 +116,7 @@ const Navbar = () => {
                 <NavLink
                   exact="true"
                   to="/"
-                  className="hover:underline hover:underline-offset-[5px] hover:text-primary"
+                  className={({ isActive }) => (isActive ? "text-primary border-b-4 border-primary pb-8" : "hover:border-b-4 hover:border-primary pb-8")}
                 >
                   Forside
                 </NavLink>
@@ -89,9 +124,7 @@ const Navbar = () => {
               <li>
                 <NavLink
                   to="/about"
-                  className={({ isActive }) =>
-                    isActive ? "text-safety-orange-blaze-orange" : "text-black"
-                  }
+                  className={({ isActive }) => (isActive ? "text-primary border-b-4 border-primary pb-8" : "hover:border-b-4 hover:border-primary pb-8")}
                 >
                   Om os
                 </NavLink>
@@ -101,7 +134,7 @@ const Navbar = () => {
                   <div className="flex items-center justify-between bg-white ">
                     <NavLink
                       to="/events"
-                      className="menu-hover lg:mx-4 text-black"
+                      className={({ isActive }) => (isActive ? "text-primary border-b-4 border-primary" : " ")}
                     >
                       Events
                     </NavLink>
@@ -113,31 +146,28 @@ const Navbar = () => {
                       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                     </svg>
                   </div>
-                  <ul className="group-hover:block absolute hidden w-56 pt-1 text-secondary rounded-lg bg-white">
-                    <li className=" px-4 py-4 cursor-pointer hover:text-primary">
-                      Xtreme
-                    </li>
-                    <li className="px-4 py-4 cursor-pointer hover:text-primary">
-                      Konkurrence
-                    </li>
-                    <li className="px-4 py-4 cursor-pointer hover:text-primary">
-                      Motionister
-                    </li>
-                    <li className="px-4 py-4 cursor-pointer hover:text-primary">
-                      Juniorer
-                    </li>
-                    <li className="px-4 py-4 cursor-pointer hover:text-primary">
-                      Alle
-                    </li>
+                  <ul className="group-hover:block absolute hidden w-auto pt-1 text-secondary rounded-lg bg-white">
+                  {data &&
+                    data
+                      
+                      
+                      .map((ec) => (
+                        <li
+                          onClick={() => setCategory(ec.category)}
+                          className="hover:text-primary px-4 py-4 cursor-pointer"
+                          key={ec._id}
+                        >
+                          {ec.category}
+                        </li>
+                      ))}
+                   
                   </ul>
                 </div>
               </li>
               <li>
                 <NavLink
                   to="/contact"
-                  className={({ isActive }) =>
-                    isActive ? "text-safety-orange-blaze-orange" : "text-black"
-                  }
+                  className={({ isActive }) => (isActive ? "text-primary border-b-4 border-primary pb-8" : "hover:border-b-4 hover:border-primary pb-8")}
                 >
                   Kontakt
                 </NavLink>
@@ -145,7 +175,7 @@ const Navbar = () => {
               <li>
                 <NavLink
                   to="/news"
-                  
+                  className={({ isActive }) => (isActive ? "text-primary border-b-4 border-primary pb-8" : "hover:border-b-4 hover:border-primary pb-8")}
                 >
                   Nyheder
                 </NavLink>
@@ -161,7 +191,7 @@ const Navbar = () => {
       {/* Mobile Menu List */}
 
       {showBurgerMenu && (
-        <div className="lg:hidden top-30 bg-onyx absolute right-0 block w-full text-white rounded shadow-lg">
+        <div className="lg:hidden top-30 bg-secondary absolute right-0 block w-full text-white rounded shadow-lg">
           <ul className="space-y-2">
             <li className="bg-onyx hover:bg-safety-orange-blaze-orange hover:text-onyx p-5 text-white transition-colors">
               <NavLink to="/" onClick={() => setShowBurgerMenu(false)}>

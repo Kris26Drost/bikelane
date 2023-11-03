@@ -21,9 +21,29 @@ export default {
       },
       container: {
         center: true,
-        padding: '3rem',
+        padding: '4em',
         maxWidth: '1280px',
       }, 
+      keyframes: {
+        'fade-in-right': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(50px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
+        'infinite-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' },
+        },
+      },
+      animation: {
+        'fade-in-right': 'fade-in-right 2s ease-in-out infinite',
+        'infinite-scroll': 'infinite-scroll 25s linear infinite',
+    }
     },
   },
   plugins: [],

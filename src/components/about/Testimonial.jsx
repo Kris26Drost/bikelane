@@ -18,26 +18,30 @@ const Testimonial = () => {
       {loading && <Loader />}
       <div className="pb-20">
         <div
-          className="bg-blue overflow-hidden"
+          className="bg-blue md:container overflow-hidden"
           style={{ backgroundImage: "url(./images/pattern2.png)" }}
         >
-          <div className="flex items-center justify-center px-10">
+          <div className="md:flex items-center justify-center md:px-10 px-5">
             {data && (
-              <div className="grid grid-cols-2">
-                <div className="flex flex-wrap items-center">
+              <div className="md:grid grid-cols-2">
+                <div className="md:flex md:flex-wrap items-center">
                   <Title headline="Testimonial" />
-                  <h2 className="text-4xl text-white font-bold"> {data[3].title}</h2>
+                  <h2 className="text-4xl font-bold text-white">
+                    {" "}
+                    {data[3].title}
+                  </h2>
+                  <div className="flex">
+                    <p className="md:text-md text-sm text-white">
+                      {data[3].content.slice(0, 219)}
+                    </p>
 
-                  <div className="flex flex-cols gap-none">
-                  <p className="text-md text-white">{data[3].content}</p>
-
-                    <div className="flex items-center justify-center text-4xl bg-primary p-4 m-5 text-white rounded-full">
-                      <FaQuoteRight className="m-3"/>
+                    <div className="bg-primary flex items-center justify-center w-20 h-20 p-5 m-5 text-white rounded-full">
+                      <FaQuoteRight className="text-3xl" />
                     </div>
-                 </div>
+                  </div>
                 </div>
 
-                <figure className="flex relative left-20">
+                <figure className="md:left-20 relative flex">
                   <img
                     src={
                       "http://localhost:5888/images/" + "hero/" + data[3].image

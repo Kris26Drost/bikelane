@@ -9,6 +9,7 @@ import Loader from "../Loader";
 import { ImLocation } from "react-icons/im";
 import { FiClock } from "react-icons/fi";
 import { MdEmail } from "react-icons/md";
+import { BiBuildings } from "react-icons/bi";
 
 const Kontakt = () => {
   const [name, setName] = useState();
@@ -66,7 +67,7 @@ const Kontakt = () => {
       {error && <Error />}
       {loading && <Loader />}
       <div
-        className="bg-blue pt-40"
+        className="bg-blue pt-60"
         style={{ backgroundImage: "url(./images/bg1.jpg)" }}
       >
         {dataHero && (
@@ -84,49 +85,55 @@ const Kontakt = () => {
         style={{ backgroundImage: "url(./images/bg1.jpg)" }}
       >
         {dataHero && (
-          <div className=" flex justify-center items-center rounded-lg w-[60vw] h-[20vh] md:h-[60vh] relative top-20 overflow-hidden">
+          <div className=" flex justify-center items-center rounded-lg w-[75vw] h-[20vh] md:h-[60vh] relative top-20 overflow-hidden">
             <img
               src={"http://localhost:5888/images/hero/" + dataHero[7].image}
               alt={dataHero[7].title}
-              className="top-[70%] left-[50%] relative transform -translate-x-1/2 -translate-y-1/2"
+              className="md:top-[70%] left-[50%] relative transform -translate-x-1/2 -translate-y-1/2"
             />
           </div>
         )}
       </div>
       <article
-        className="container flex flex-wrap pt-20"
+        className="md:container md:flex flex-wrap pt-20"
         style={{ backgroundImage: "url(./images/bg4.png)" }}
       >
-        <div className="w-1/3 mt-10">
+        <div className="md:w-1/3 mt-10">
           {data && (
-            <div className="bg-hero w-auto p-5 mr-5 rounded-md">
-              <div className="flex">
-                <ImLocation className=" text-primary inline-block m-2" />
+            <div className="bg-hero md:w-auto md:mr-5 p-5 rounded-md">
+              <div className="flex m-3">
+                <span className="bg-primary text-primary bg-opacity-10 mx-2 rounded-full">
+                  <BiBuildings className=" text-primary inline-block m-2" />
+                </span>
+                <p className="inline-block">Klubhuset i Grenaa</p>
+              </div>
 
+              <div className="flex m-3">
+                <span className="bg-primary text-primary bg-opacity-10 mx-2 rounded-full">
+                  <ImLocation className=" text-primary inline-block m-2" />
+                </span>
                 <p className="inline-block">
                   {data.address}, {data.zipcity}
                 </p>
               </div>
 
-              <div className="flex">
-                <FiClock className=" text-primary inline-block m-2" />
-
+              <div className="flex m-3">
+                <span className="bg-primary text-primary bg-opacity-10 mx-2 rounded-full">
+                  <FiClock className=" text-primary inline-block m-2" />
+                </span>
                 <p className="inline-block">{data.openinghours}</p>
               </div>
 
-              <div className="flex">
-                <MdEmail className=" text-primary inline-block m-2" />
-
+              <div className="flex m-3">
+                <span className="bg-primary text-primary bg-opacity-10 mx-2 rounded-full">
+                  <MdEmail className=" text-primary inline-block m-2" />
+                </span>
                 <p className="inline-block">{data.email}</p>
               </div>
             </div>
           )}
         </div>
-        <form
-          onSubmit={handleSubmit}
-          ref={formRef}
-          className=" flex-1 my-10"
-        >
+        <form onSubmit={handleSubmit} ref={formRef} className="md:flex-1 my-10">
           <div className=" flex flex-col">
             <label>Navn</label>
             <input
@@ -135,7 +142,7 @@ const Kontakt = () => {
               minLength="2"
               placeholder="Dit navn"
               onInput={(e) => setName(e.target.value)}
-              className="focus:outline-none p-3 my-3 mr-3 border-2 border-gray-300 rounded-md"
+              className="focus:outline-none md:mr-3 p-3 my-3 mr-0 border-2 border-gray-300 rounded-md"
               required
             />
             <label>Email</label>
@@ -145,7 +152,7 @@ const Kontakt = () => {
               pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
               placeholder="Din email"
               onInput={(e) => setEmail(e.target.value)}
-              className="focus:outline-none p-3 my-3 mr-3 border-2 border-gray-300 rounded-md"
+              className="focus:outline-none md:mr-3 p-3 my-3 mr-0 border-2 border-gray-300 rounded-md"
               required
             />
             <label>Telefon</label>
@@ -155,7 +162,7 @@ const Kontakt = () => {
               pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"
               placeholder="Telefon nr."
               onInput={(e) => setPhone(e.target.value)}
-              className="focus:outline-none p-3 my-3 mr-3 border-2 border-gray-300 rounded-md"
+              className="focus:outline-none md:mr-3 p-3 my-3 mr-0 border-2 border-gray-300 rounded-md"
               required
             />
             <label>Besked</label>
@@ -163,11 +170,11 @@ const Kontakt = () => {
               name="message"
               placeholder="Din besked.."
               onInput={(e) => setMessage(e.target.value)}
-              className="focus:outline-none w-full min-h-full p-3 border-2 border-gray-300 rounded-md"
+              className="focus:outline-none md:w-full md:min-h-full p-3 border-2 border-gray-300 rounded-md"
               required
             />
             <button
-              className="bg-secondary hover:bg-safety-orange-dark-orange flex justify-center items-center w-1/5 py-2 mt-4 text-white rounded-md"
+              className="bg-secondary hover:bg-safety-orange-dark-orange md:w-1/5 flex items-center justify-center w-1/2 py-2 mt-4 text-white rounded-md"
               type="submit"
               value="Tilmeld"
             >

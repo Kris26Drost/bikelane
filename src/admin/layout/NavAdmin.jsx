@@ -11,14 +11,14 @@ const NavAdmin = () => {
   };
 
   return (
-    <nav className="bg-white w-full  z-30 shadow-lg p-5 rounded-md">
-      <div className="mx-auto flex justify-between items-center">
+    <nav className="z-30 w-full p-5 bg-white rounded-md shadow-lg">
+      <div className="flex items-center justify-between mx-auto">
         {/* Navigation Links */}
-        <menu className="space-x-5 flex justify-center items-center">
+        <menu className="flex items-center justify-center space-x-5">
           <NavLink
             to="/"
             className={({ isActive }) =>
-              isActive ? "text-safety-orange-blaze-orange" : "text-black"
+              isActive ? "text-primary" : "text-secondary"
             }
           >
             &lt; Tilbage til forsiden
@@ -27,27 +27,35 @@ const NavAdmin = () => {
           <NavLink
             to="/admin"
             className={({ isActive }) =>
-              isActive ? "text-safety-orange-blaze-orange" : "text-black"
+              isActive ? "text-primary" : "text-secondary"
             }
           >
-            Admin Home
+           <span className="font-bold"> Admin</span> Home
           </NavLink>
 
           <NavLink
             to="eventsadmin"
             className={({ isActive }) =>
-              isActive ? "text-safety-orange-blaze-orange" : "text-black"
+              isActive ? "text-primary" : "text-secondary"
             }
           >
-            Opret/Ret/Slet -  Events
+            <span className="font-bold"> Opret/Ret/Slet</span> - <span className="underline underline-offset-4"> Events</span>
           </NavLink>
           <NavLink
             to="goalsadmin"
             className={({ isActive }) =>
-              isActive ? "text-safety-orange-blaze-orange" : "text-black"
+              isActive ? "text-primary" : "text-secondary"
             }
           >
-            Ret - Goals 
+            <span className="font-bold"> Ret</span> - <span className="underline underline-offset-4"> Goals</span>
+          </NavLink>
+          <NavLink
+            to="herosadmin"
+            className={({ isActive }) =>
+              isActive ? "text-primary" : "text-secondary"
+            }
+          >
+            <span className="font-bold"> Ret</span> - <span className="underline underline-offset-4"> Heros</span>
           </NavLink>
         </menu>
 

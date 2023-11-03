@@ -8,7 +8,7 @@ import "../../../node_modules/font-awesome/css/font-awesome.min.css";
 
 import { ImLocation } from "react-icons/im";
 import { FiClock } from "react-icons/fi";
-import { FaUser } from "react-icons/fa";
+import { FaRegBuilding } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
 const Header = () => {
@@ -42,7 +42,7 @@ const Header = () => {
             {isMobile ? (
               // Render mobile layout
               <div className="lg:hidden flex items-center">
-                <ImLocation className="text-safety-orange-blaze-orange" />
+                <FaRegBuilding className="text-safety-orange-blaze-orange" />
                 <p className="ml-2">
                   Klubuset: {data.address},{data.zipcity}
                 </p>
@@ -51,7 +51,7 @@ const Header = () => {
               // Render desktop layout
               <div className="lg:flex hidden space-x-4">
                 <div className="flex items-center">
-                  <ImLocation className="text-safety-orange-blaze-orange" />
+                  <FaRegBuilding className="text-safety-orange-blaze-orange" />
                   <p className="ml-2">
                     Klubuset: {data.address}, {data.zipcity}
                   </p>

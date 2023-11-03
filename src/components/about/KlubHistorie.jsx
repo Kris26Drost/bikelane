@@ -17,21 +17,21 @@ const KlubHistorie = () => {
       {loading && <Loader />}
       <div>
         {data && (
-          <div>
-            <div className="container grid grid-cols-2 grid-rows-1">
+          <article className="md:container md:px-0 px-5">
+            <div className="md:container pt-10 md:flex md:gap-20">
               <div>
                 <Title headline="Klubbens historie" />
                 <h1 className="text-5xl font-bold">{data[1].title}</h1>
               </div>
-              <div className="">
+              <div className="pt-10">
                 <p>{data[1].content}</p>
                 <button className="bg-secondary p-3 px-4 text-white rounded-md my-3">
                   Kom og vær med!
                 </button>
               </div>
             </div>
-            <div className=" relative flex justify-center w-full h-full pb-40">
-              <figure className=" w-[60vw] h-[30vh] md:h-[50vh] relative m-10">
+            <div className=" relative flex justify-center md:w-full md:h-full md:pb-40 pb-20">
+              <figure className=" md:w-[60vw] md:h-[50vh] relative md:m-10 ">
                 <img
                 className="rounded-lg shadow-xl"
                   src={"http://localhost:5888/images/hero/" + data[1].image}
@@ -39,7 +39,7 @@ const KlubHistorie = () => {
                 />
               </figure>
             </div>
-          </div>
+          </article>
         )}
       </div>
     </section>

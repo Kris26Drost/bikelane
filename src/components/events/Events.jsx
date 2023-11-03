@@ -3,6 +3,9 @@ import useRequestData from "../../hooks/useRequestData";
 import Error from "../Error";
 import Loader from "../Loader";
 import Title from "../Title";
+import { Link } from "react-router-dom";
+import BlivenOs from "./BlivenOs";
+import Sponsor from "./Sponsor";
 
 const Events = () => {
   const { data, loading, error, makeRequest } = useRequestData();
@@ -33,7 +36,7 @@ const Events = () => {
     makeRequestEvents("events");
   }, []);
 
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState("");
   const currentDate = new Date();
   const [itemsPerPage, setItemsPerPage] = useState(9); // amount of news to show per page
   const [currentPage, setCurrentPage] = useState(0); // current page number
@@ -42,14 +45,14 @@ const Events = () => {
     <section>
       {error && <Error />}
       {loading && <Loader />}
-      <div className="container pt-40">
+      <div className="pt-40 ">
         {data && (
-          <div key={data._id}>
+          <div key={data._id} className="md:container p-5 md:p-0 text-center md:text-none">
             <Title headline="Events" />
-            <h1 className="text-3xl font-bold">{data[6].title}</h1>
-            <div className="flex items-center justify-center">
+            <h1 className="md:text-3xl text-2xl font-bold">{data[6].title}</h1>
+            <div className="md:flex items-center justify-center md:py-5 py-3">
               <div>
-                <ul className="flex">
+                <ul className="flex justify-evenly md:text-base text-xs">
                   {dataEventCategory &&
                     dataEventCategory
                       .slice()
@@ -57,42 +60,45 @@ const Events = () => {
                       .map((ec) => (
                         <li
                           onClick={() => setCategory(ec.category)}
-                          className="hover:text-primary m-2 cursor-pointer"
+                          className="hover:text-primary mx-2 hover:border-b-2 border-dim-gray cursor-pointer"
                           key={ec._id}
                         >
                           {ec.category}
                         </li>
                       ))}
-                  <li
-                    className="hover:text-primary m-2 cursor-pointer"
-                    onClick={() => setCategory("")}
-                  >
-                    Fjern filter
-                  </li>
                 </ul>
               </div>
             </div>
-            <div className="flex flex-wrap m-4">
+            <div className="flex flex-wrap md:m-4">
               {dataEvents &&
                 dataEvents
-                  
-                  .filter(e => new Date(e.eventdate) > currentDate)
-                  .filter(e => category === '' || e.category.category === category)
-                  .sort((a, b) => new Date(b.evendate) - new Date(a.eventdate))
-                  .map((c, i) => {
+
+                  .filter((e) => new Date(e.eventdate) > currentDate)
+                  .filter(
+                    (e) => category === "" || e.category.category === category
+                  )
+                  .sort((a, b) => new Date(a.evendate).getTime() - new Date(b.eventdate).getTime())
+                  .reverse()
+                  .map((c) => {
                     return (
-                      <article className="w-1/3 p-5 pl-0" key={i}>
-                        <img
-                          src={"http://localhost:5888/images/event/" + c.image}
-                          alt={c.category.category}
-                          className="w-full h-auto rounded-lg"
-                        />
-                        <div className="flex">
+                      <article className="md:w-1/3 md:p-5 md:pl-0" key={c._id}>
+                        <Link to={"/events/" + c._id}>
+                          <div className="w-full h-[40vh] md:h-[40vh]">
+                            <img
+                              src={
+                                "http://localhost:5888/images/event/" + c.image
+                              }
+                              alt={c.category.category}
+                              className="h-full rounded-lg"
+                            />
+                          </div>
+                        </Link>
+                        <div className="flex md:flex-none flex-wrap md:text-base text-sm">
                           <time className="text-primary lowercase">
                             {" "}
-                            {new Date(c.eventdate).toLocaleDateString("en-US", {
-                              day: "numeric",
+                            {new Date(c.eventdate).toLocaleDateString("dk-DA", {
                               month: "long",
+                              day: "numeric",
                               year: "numeric",
                             })}
                           </time>
@@ -102,55 +108,19 @@ const Events = () => {
                             | Målgruppe: {c.category.category}
                           </p>
                         </div>
-                        <div className="flex">
-                          <h3 className="text-xl font-bold">{c.title}</h3>
+                        <div className="flex md:pb-0 pb-10">
+                          <h3 className="md:text-xl text-lg font-bold">{c.title}</h3>
                         </div>
                       </article>
                     );
                   })}
             </div>
-
-            {/* Pagination Prev and Next with number of pages  */}
-            {dataEvents && (
-              <div className="white-space">
-                <button
-                  className="active:bg-safety-orange-blaze-orange px-4 py-2 m-2 text-black bg-white border-2 border-gray-200 rounded-md"
-                  disabled={currentPage <= 0}
-                  onClick={() => {
-                    setCurrentPage(currentPage - 1);
-                  }}
-                >
-                  Prev
-                </button>
-
-                {[...Array(Math.ceil(data.length / itemsPerPage))].map(
-                  (x, index) => (
-                    <button
-                      className={`bg-safety-orange-blaze-orange border-2 border-safety-orange-blaze-orange text-white rounded-md m-2 px-4 py-2 
-      ${index === currentPage ? "bg-blue-200" : null}`}
-                      onClick={() => setCurrentPage(index)}
-                      key={index}
-                    >
-                      {index + 1}
-                    </button>
-                  )
-                )}
-
-                <button
-                  className=" px-4 py-2 m-2 text-black bg-white border-2 border-gray-200 rounded-md"
-                  disabled={
-                    currentPage >= Math.ceil(data.length / itemsPerPage) - 1
-                  }
-                  onClick={() => {
-                    setCurrentPage(currentPage + 1);
-                  }}
-                >
-                  Next
-                </button>
-              </div>
-            )}
           </div>
         )}
+        <div className="md:container">
+        < Sponsor />
+        </div>
+        <BlivenOs />
       </div>
     </section>
   );
