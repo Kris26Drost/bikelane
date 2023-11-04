@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import useRequestData from "../../hooks/useRequestData";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Parse from "html-react-parser";
+import useRequestData from "../../hooks/useRequestData";
 import Loader from "../Loader";
 import Error from "../Error";
-import Parse from "html-react-parser";
 
 const EventDetails = () => {
   const { eventID } = useParams();

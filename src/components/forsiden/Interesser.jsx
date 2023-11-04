@@ -3,6 +3,8 @@ import useRequestData from "../../hooks/useRequestData";
 import Error from "../Error";
 import Loader from "../Loader";
 import Title from "../Title";
+
+// iocns
 import "../../../node_modules/font-awesome/css/font-awesome.min.css";
 
 const Interesser = () => {
@@ -46,8 +48,8 @@ const Interesser = () => {
             </div>
           </div>
 
-          <div className="flex md:pb-0 pb-20">
-            <div className="md:grid-cols-12 grid-cols-4 md:m-4 m-2">
+          <div className="md:pb-0 flex pb-20">
+            <div className="md:grid-cols-12 md:m-4 grid-cols-4 m-2">
               <img
                 src={"http://localhost:5888/images/interest/" + data.image1}
                 className=" rounded-lg"
@@ -57,7 +59,7 @@ const Interesser = () => {
                 className="md:mt-10 mt-4 rounded-lg"
               />
             </div>
-            <div className="md:grid-cols-12 grid-cols-4 md:m-4 m-2">
+            <div className="md:grid-cols-12 md:m-4 grid-cols-4 m-2">
               <img
                 src={"http://localhost:5888/images/interest/" + data.image2}
                 className="rounded-lg"

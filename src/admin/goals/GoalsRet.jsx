@@ -1,6 +1,6 @@
-import React, { useEffect} from "react";
-import useRequestData from "../../hooks/useRequestData";
+import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import useRequestData from "../../hooks/useRequestData";
 import Error from "../../components/Error";
 import Loader from "../../components/Loader";
 
@@ -20,10 +20,10 @@ const GoalsRet = () => {
   const { goalsID } = useParams();
   const Navigate = useNavigate();
 
-  // GET 
+  // GET
   const { data, loading, error, makeRequest } = useRequestData();
 
-  // PUT 
+  // PUT
   const {
     data: dataEdit,
     loading: loadingEdit,
@@ -94,7 +94,6 @@ const GoalsRet = () => {
               className="w-full p-2 mt-1 border rounded"
               required
             />
-            
           </div>
 
           <div className="mb-4">

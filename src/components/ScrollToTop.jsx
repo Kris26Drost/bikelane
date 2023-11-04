@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
-import { BsArrowUpShort } from "react-icons/bs";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
+// icons
+import { BsArrowUpShort } from "react-icons/bs";
+
+// utils
 import { classNames } from "../utils/classNames";
 
 export const ScrollToTop = () => {
@@ -33,7 +36,7 @@ export const ScrollToTop = () => {
 
   if (location.pathname === "/") {
     return (
-      <div className="fixed bottom-3 right-3 z-30">
+      <div className="bottom-3 right-3 fixed z-30">
         <button
           type="button"
           onClick={scrollToTop}
@@ -42,7 +45,7 @@ export const ScrollToTop = () => {
             "bg-white inline-flex items-center rounded-md p-3 shadow-md transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2 hover:bg-secondary text-secondary hover:text-white"
           )}
         >
-          <BsArrowUpShort className="h-6 w-6 " aria-hidden="true" />
+          <BsArrowUpShort className=" w-6 h-6" aria-hidden="true" />
         </button>
       </div>
     );

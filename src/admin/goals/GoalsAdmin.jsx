@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import useRequestData from "../../hooks/useRequestData";
 import { Link } from "react-router-dom";
+import useRequestData from "../../hooks/useRequestData";
 import Error from "../../components/Error";
 import Loader from "../../components/Loader";
 
@@ -24,19 +24,17 @@ const GoalsAdmin = () => {
     makeRequest("goals");
   }, [dataEdit]);
 
-
-
   return (
-    <div>
-      <div className="bg-primary text-white p-10">
+    <section className="md:pt-10 pt-20">
+      <div className="bg-primary md:p-10 p-5 text-white">
         <h1 className="text-3xl font-semibold">Administrerer Goals</h1>
       </div>
       {(error || errorEdit) && <Error errorMessage="Admin Goals" />}
       {(loading || loadingEdit) && <Loader />}
 
-      <div className="flex items-center justify-center m-5 table-auto border">
+      <div className="flex items-center justify-center m-5 border table-auto">
         <table className="w-full text-sm text-left">
-          <thead className="bg-gray-50 text-xs text-gray-700 uppercase">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-100">
             <tr>
               <th className="p-2">Goal</th>
               <th className="p-2">Goalnumber</th>
@@ -53,11 +51,9 @@ const GoalsAdmin = () => {
                   <td className="p-2"> {goal.goal}</td>
                   <td className="p-2">{goal.goalcount}</td>
                   <td className="p-2">
-                    <FontAwesomeIcon icon={goal.icon}/>
-                    </td>
-                    <td className="p-2">
-                    {goal.order}
-                    </td>
+                    <FontAwesomeIcon icon={goal.icon} />
+                  </td>
+                  <td className="p-2">{goal.order}</td>
                   <td className="p-2">
                     <Link
                       to={"/admin/goalsadmin/edit/" + goal._id}
@@ -74,7 +70,7 @@ const GoalsAdmin = () => {
           </tbody>
         </table>
       </div>
-    </div>
+    </section>
   );
 };
 

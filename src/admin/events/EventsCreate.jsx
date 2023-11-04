@@ -7,13 +7,15 @@ import "react-quill/dist/quill.snow.css";
 // alternativ for react-quill er
 
 const EventsCreate = () => {
-
   // POST
   const { data, loading, error, makeRequest } = useRequestData();
 
   // reference to quill
   const refQuill = useRef();
-  const toolbarOptions = [["bold", "italic", "underline", "strike"], [{list : "ordered"}, {list : "bullet"}]];
+  const toolbarOptions = [
+    ["bold", "italic", "underline", "strike"],
+    [{ list: "ordered" }, { list: "bullet" }],
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,8 +35,8 @@ const EventsCreate = () => {
 
   // Kategorierne
   const [category, setCategory] = useState();
-  
-   const {
+
+  const {
     data: dataCategories,
     loading: loadingCategories,
     error: errorCategories,
@@ -45,18 +47,17 @@ const EventsCreate = () => {
     makeCategoriesRequest("eventcategories");
   }, []);
 
-  
   return (
     // dialogue box
     <div>
-      {error && <div className="bg-red-300 p-2 m-2">{error}</div>}
-      {loading && <div className="bg-yellow-300 p-2 m-2">Loading...</div>}
-      {data && <div className="bg-green-300 p-2 m-2">Oprettet!</div>}
+      {error && <div className="p-2 m-2 bg-red-300">{error}</div>}
+      {loading && <div className="p-2 m-2 bg-yellow-300">Loading...</div>}
+      {data && <div className="p-2 m-2 bg-green-300">Oprettet!</div>}
 
       <div className="bg-cultured p-10">
         <h1 className="text-3xl font-semibold">Administrerer nyheder</h1>
       </div>
-      
+
       <h1 className="text-3xl font-semibold">Opret ny nyhed</h1>
 
       <form onSubmit={handleSubmit}>
@@ -67,7 +68,7 @@ const EventsCreate = () => {
               name="title"
               type="text"
               placeholder="Titel"
-              className="mt-1 p-2 w-full border rounded"
+              className="w-full p-2 mt-1 border rounded"
               required
             />
           </label>
@@ -78,21 +79,25 @@ const EventsCreate = () => {
             Events Indhold
             {/* <textarea
               name="content"
-              className="mt-1 p-2 w-full border rounded"
+              className="w-full p-2 mt-1 border rounded"
               required
               defaultValue={refQuill}
             /> */}
           </label>
-          <ReactQuill modules={ {toolbar: toolbarOptions} } theme="snow" placeholder="Nyhedstekst" ref={refQuill} />
+          <ReactQuill
+            modules={{ toolbar: toolbarOptions }}
+            theme="snow"
+            placeholder="Nyhedstekst"
+            ref={refQuill}
+          />
         </div>
 
-         {/* Kategorierne u dropdown */}
-         <div className="mt-3 mb-3">
+        {/* Kategorierne u dropdown */}
+        <div className="mt-3 mb-3">
           <label className="form-label me-3">
             Vælg en Event Kategorie:
-           
             <select
-            name="category"
+              name="category"
               defaultValue="DEFAULT"
               onChange={(e) => setCategory(e.target.value)}
               className="form-select"
@@ -103,7 +108,6 @@ const EventsCreate = () => {
               {dataCategories &&
                 dataCategories.map((c) => (
                   <option value={c._id} key={c._id}>
-                    
                     {c.category}
                   </option>
                 ))}
@@ -196,7 +200,7 @@ const EventsCreate = () => {
 
         <div>
           <button
-            className="bg-primary text-white cursor-pointer p-2 rounded "
+            className="bg-primary  p-2 text-white rounded cursor-pointer"
             type="submit"
           >
             Submit

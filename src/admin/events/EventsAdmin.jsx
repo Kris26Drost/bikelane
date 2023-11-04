@@ -1,15 +1,11 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import useRequestData from "../../hooks/useRequestData";
 import Error from "../../components/Error";
 import Loader from "../../components/Loader";
 import { Link } from "react-router-dom";
 
 //icons
 import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
-
-// import axios hook
-import useRequestData from "../../hooks/useRequestData";
-
-// 1- Hent alle nyheder og vis dem
 
 const EventsAdmin = () => {
   // GET
@@ -38,23 +34,23 @@ const EventsAdmin = () => {
   };
 
   return (
-    <div>
-      <div className="bg-primary text-white p-10">
+    <section className="md:pt-10 pt-20">
+      <div className="bg-primary md:p-10 p-5 text-white">
         <h1 className="text-3xl font-semibold">Administrerer Events</h1>
       </div>
       {(error || errorDelete) && <Error errorMessage="Admin Nyheder" />}
       {(loading || loadingDelete) && <Loader />}
 
-      <div className="flex justify-center items-center m-5 table-auto">
+      <div className="flex items-center justify-center m-5 table-auto">
         <table className="w-full text-sm text-left">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-100">
             <tr>
               <th></th>
               <th></th>
               <th>
                 <Link
                   to={"/admin/eventsadmin/create"}
-                  className="text-primary cursor-pointer rounded p-3 flex items-center w-1/2"
+                  className="text-primary flex items-center w-1/2 p-3 rounded cursor-pointer"
                 >
                   <FaPlus className="mr-2" /> Opret ny
                 </Link>
@@ -77,7 +73,7 @@ const EventsAdmin = () => {
                   <td className="p-2">
                     <Link
                       to={"/admin/eventsadmin/edit/" + event._id}
-                      className="cursor-pointer rounded p-3 flex items-center"
+                      className="flex items-center p-3 rounded cursor-pointer"
                     >
                       <FaEdit
                         className="hover:text-safety-orange-blaze-orange cursor-pointer"
@@ -97,7 +93,7 @@ const EventsAdmin = () => {
           </tbody>
         </table>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import useRequestData from "../../hooks/useRequestData";
 import Error from "../Error";
 import Loader from "../Loader";
+
+// scroll
 import { useSpring, animated } from "@react-spring/web";
 import ScrollTrigger from "react-scroll-trigger";
 
+// icons
 import ReactDOM from "react-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -45,20 +48,21 @@ const Maltal = () => {
       <section>
         {error && <Error />}
         {loading && <Loader />}
-        <div className="md:flex md:justify-evenly text-center items-center md:container bg-hero p-10">
+        <div className="md:flex md:justify-evenly md:container bg-hero items-center p-10 text-center">
           {data &&
-            data.sort((a,b) => (a.order > b.order) ? 1: -1).map((g) => (
-              <div key={g._id} className="md:pb-0 pb-10">
-                {show && <Number n={g.goalcount} />}
-                <FontAwesomeIcon
-                  className="text-primary border-primary w-3 h-3 md:p-3 p-2 m-2 border-2 rounded-full"
-                  icon={g.icon}
-                />
-                
+            data
+              .sort((a, b) => (a.order > b.order ? 1 : -1))
+              .map((g) => (
+                <div key={g._id} className="md:pb-0 pb-10">
+                  {show && <Number n={g.goalcount} />}
+                  <FontAwesomeIcon
+                    className="text-primary border-primary md:p-3 w-3 h-3 p-2 m-2 border-2 rounded-full"
+                    icon={g.icon}
+                  />
+
                   <p>{g.goal}</p>
-                
-              </div>
-            ))}
+                </div>
+              ))}
         </div>
       </section>
     </ScrollTrigger>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import useRequestData from "../../hooks/useRequestData";
-import Map from "../map";
-import Title from "../Title";
 import Error from "../Error";
 import Loader from "../Loader";
+
+// components
+import Map from "./Map";
 
 // icons
 import { ImLocation } from "react-icons/im";

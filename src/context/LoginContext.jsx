@@ -4,7 +4,6 @@ import axios from "axios";
 export const LoginContext = createContext();
 
 const LoginContextProvider = (props) => {
-
   const [user, setUser] = useState(); // Default value is "Ib"
 
   // Post to api - send email and password
@@ -22,31 +21,27 @@ const LoginContextProvider = (props) => {
 
       // Set the user state with the user data
       setUser(userData);
-
     } catch (error) {
       // Handle login error (e.g., show an error message)
       alert("Forkert brugernavn eller password");
     }
   };
 
-
-
   const signIn = (email, password) => {
-    if(!user) {
-      login(email, password)
-    } 
-  }
+    if (!user) {
+      login(email, password);
+    }
+  };
 
   const signOut = () => {
-    setUser()
-  }
-
+    setUser();
+  };
 
   return (
-    <LoginContext.Provider value={{user, signIn, signOut}}>
+    <LoginContext.Provider value={{ user, signIn, signOut }}>
       {props.children}
     </LoginContext.Provider>
-  )
+  );
 };
 
 export default LoginContextProvider;

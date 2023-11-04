@@ -3,6 +3,8 @@ import useRequestData from "../../hooks/useRequestData";
 import Error from "../Error";
 import Loader from "../Loader";
 import Title from "../Title";
+
+// icons
 import { FaQuoteRight } from "react-icons/fa";
 
 const Testimonial = () => {
@@ -21,7 +23,7 @@ const Testimonial = () => {
           className="bg-blue md:container overflow-hidden"
           style={{ backgroundImage: "url(./images/pattern2.png)" }}
         >
-          <div className="md:flex items-center justify-center md:px-10 px-5">
+          <div className="md:flex md:px-10 items-center justify-center px-5">
             {data && (
               <div className="md:grid grid-cols-2">
                 <div className="md:flex md:flex-wrap items-center">

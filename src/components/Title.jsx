@@ -1,5 +1,4 @@
 import React from "react";
-import Breadcrumbs from "./Breadcrumbs";
 
 const Title = ({ headline }) => {
   return (

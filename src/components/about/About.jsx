@@ -1,8 +1,8 @@
-import React from 'react'
-import KlubHistorie from './KlubHistorie'
-import Testimonial from './Testimonial'
-import Faelleskab from './../forsiden/Faelleskab'
-import Maltal from './Maltal'
+import React from "react";
+import KlubHistorie from "./KlubHistorie";
+import Testimonial from "./Testimonial";
+import Faelleskab from "./../forsiden/Faelleskab";
+import Maltal from "./Maltal";
 
 const About = () => {
   return (
@@ -12,7 +12,7 @@ const About = () => {
       <Faelleskab />
       <Maltal />
     </>
-  )
-}
+  );
+};
 
-export default About
+export default About;

@@ -2,9 +2,9 @@ import React from "react";
 import { MoonLoader } from "react-spinners";
 
 const Loader = () => {
-  return ( 
+  return (
     <div
-    className="
+      className="
       h-[70vh]
       flex 
       flex-col 
@@ -12,14 +12,9 @@ const Loader = () => {
       items-center 
     "
     >
-      <MoonLoader
-        size={100}
-        color="rgb(212, 93, 121)"
-      />
+      <MoonLoader size={100} color="rgb(212, 93, 121)" />
     </div>
-   );
-}
- 
+  );
+};
+
 export default Loader;
-
-

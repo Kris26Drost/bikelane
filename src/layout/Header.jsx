@@ -1,19 +1,19 @@
 import React, { useEffect, useState, useContext } from "react";
-import useRequestData from "../hooks/useRequestData";
 import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
-import SignoutBtn from "../components/SignoutBtn";
-import { LoginContext } from "../context/LoginContext";
+import useRequestData from "../hooks/useRequestData";
 import Error from "../components/Error";
 import Loader from "../components/Loader";
 
-import "../../node_modules/font-awesome/css/font-awesome.min.css";
+// components
+import Navbar from "./Navbar";
+import { LoginContext } from "../context/LoginContext";
+import SignoutBtn from "../components/SignoutBtn";
 
+// icons
 import { FiClock } from "react-icons/fi";
 import { FaUser, FaRegBuilding } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-
-
+import "../../node_modules/font-awesome/css/font-awesome.min.css";
 
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -46,16 +46,14 @@ const Header = () => {
       {error && <Error />}
       {loading && <Loader />}
       {data && (
-        <header className="text-secondary px-5 py-10 absolute container">
-          <div className="max-w-screen-xl mx-auto flex items-center justify-between">
+        <header className="text-secondary container absolute px-5 py-10">
+          <div className="flex items-center justify-between max-w-screen-xl mx-auto">
             {isMobile ? (
               // Render mobile layout
-              <div className="lg:hidden flex items-center">
-              
-              </div>
+              <div className="lg:hidden flex items-center"></div>
             ) : (
               // Render desktop layout
-              <div className="hidden lg:flex space-x-4">
+              <div className="lg:flex hidden space-x-4">
                 <div className="flex items-center">
                   <FaRegBuilding className="text-safety-orange-blaze-orange" />
                   <p className="ml-2">
@@ -72,11 +70,11 @@ const Header = () => {
                 </div>
 
                 {!user && (
-                  <div className="flex items-center">
-                    <FaUser className="text-safety-orange-blaze-orange" />
+                  <div className="hover:text-primary flex items-center">
+                    <FaUser className="text-safety-orange-blaze-orange cursor-pointer" />
 
                     <Link to="/admin">
-                      <p className="ml-2">Login</p>
+                      <p className=" ml-2">Login</p>
                     </Link>
                   </div>
                 )}
@@ -84,13 +82,16 @@ const Header = () => {
               </div>
             )}
 
-            <div className="hidden lg:flex">
+            <div className="lg:flex hidden">
               {data.some.map((icons) => (
-                <Link to={icons.link} key={icons._id} className="hover:text-primary">
+                <Link
+                  to={icons.link}
+                  key={icons._id}
+                  className="hover:text-primary"
+                >
                   <span
                     className={"fa " + icons.icon}
-                    style={{ margin: "0 10px 0 10px"}}
-                   
+                    style={{ margin: "0 10px 0 10px" }}
                   ></span>
                 </Link>
               ))}

@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import useRequestData from "../../hooks/useRequestData";
 import Error from "../Error";
 import Loader from "../Loader";
 import Title from "../Title";
-import { Link } from "react-router-dom";
 
+// swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -33,27 +34,51 @@ const VaereMed = () => {
           style={{ backgroundImage: "url(./images/pattern2.png)" }}
         >
           <div className="md:flex justify-between m-5">
-          <Title headline="Kom og være med" />
-            <h3 className="relative z-10 md:text-4xl text-3xl font-bold md:text-center text-white">
-              Her er vores seneste arrangementer
-            </h3>
-
-            <Link to="/events">
-              <button className="bg-primary p-3 px-4 text-white rounded-md">
-                Se alle events
-              </button>
-            </Link>
+            <div>
+              <Title headline="Kom og være med" />
+              <h3 className="md:text-4xl md:text-center relative z-10 text-3xl font-bold text-white">
+                Her er vores seneste arrangementer
+              </h3>
+            </div>
+            <div>
+              <Link to="/events">
+                <button className="bg-primary p-3 px-4 mt-5 text-white rounded-md">
+                  Se alle events
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
 
-        <div className="md:-top-20 -top-20 md:m-0 m-5 relative z-20">
+        <div className="md:-top-20 -top-20 md:m-0 relative z-20 m-5">
           <Swiper
+            breakpoints={{
+              0: {
+                spaceBetween: 10,
+                slidesPerView: 1,
+              },
+              468: {
+                spaceBetween: 10,
+                slidesPerView: 2,
+              },
+              768: {
+                spaceBetween: 15,
+                slidesPerView: 3,
+              },
+              1024: {
+                spaceBetween: 15,
+                slidesPerView: 3,
+              },
+              1280: {
+                spaceBetween: 30,
+                slidesPerView: 3,
+              },
+            }}
             spaceBetween={10}
             effect={"coverflow"} // Apply coverflow effect
             grabCursor={true}
             loop={true}
             centeredSlides={true}
-            slidesPerView={3}
             coverflowEffect={{
               rotate: 50, // Set the rotate value as needed
               stretch: 0, // Stretch space between slides (in px)
@@ -63,7 +88,7 @@ const VaereMed = () => {
             }}
             modules={[EffectCoverflow, Navigation]}
             navigation={true}
-            className="mySwiper md:container md:rounded-none rounded-md overflow-hidden md:overflow-none"
+            className="mySwiper md:container md:rounded-none md:overflow-none overflow-hidden rounded-md"
           >
             {data &&
               data
@@ -85,8 +110,8 @@ const VaereMed = () => {
                       style={{
                         height: "300px",
                         width: "400px",
-                        zIndex: "30",  // Increase the z-index valu
-                        position: "relative",  // Add a position valu
+                        zIndex: "30", // Increase the z-index valu
+                        position: "relative", // Add a position valu
                       }}
                     >
                       <Link to={"/events/" + e._id}>

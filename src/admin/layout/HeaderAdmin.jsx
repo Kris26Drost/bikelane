@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import useRequestData from "../../hooks/useRequestData";
 import { Link } from "react-router-dom";
 import NavAdmin from "./NavAdmin";
 import SignoutBtn from "../../components/SignoutBtn";
+import { LoginContext } from "../../context/LoginContext";
 
 import "../../../node_modules/font-awesome/css/font-awesome.min.css";
 
 import { ImLocation } from "react-icons/im";
 import { FiClock } from "react-icons/fi";
-import { FaRegBuilding } from "react-icons/fa";
+import { FaRegBuilding, FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
+
+  // Get the user from the LoginContext
+  const { user } = useContext(LoginContext);
 
   const { data, loading, error, makeRequest } = useRequestData();
 
@@ -42,10 +46,16 @@ const Header = () => {
             {isMobile ? (
               // Render mobile layout
               <div className="lg:hidden flex items-center">
-                <FaRegBuilding className="text-safety-orange-blaze-orange" />
-                <p className="ml-2">
-                  Klubuset: {data.address},{data.zipcity}
-                </p>
+                 {!user && (
+                  <div className="flex items-center hover:text-primary">
+                    <FaUser className="text-safety-orange-blaze-orange cursor-pointer" />
+
+                    <Link to="/admin">
+                      <p className="ml-2 ">Login</p>
+                    </Link>
+                  </div>
+                )}
+                {user && <SignoutBtn />}
               </div>
             ) : (
               // Render desktop layout

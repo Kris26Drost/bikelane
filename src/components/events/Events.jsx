@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import useRequestData from "../../hooks/useRequestData";
 import Error from "../Error";
 import Loader from "../Loader";
 import Title from "../Title";
-import { Link } from "react-router-dom";
+
+// components
 import BlivenOs from "./BlivenOs";
 import Sponsor from "./Sponsor";
 
+// icons
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+
 const Events = () => {
   const { data, loading, error, makeRequest } = useRequestData();
+  const [category, setCategory] = useState("");
+  const currentDate = new Date();
+  const [itemsPerPage, setItemsPerPage] = useState(9); // amount of news to show per page
+  const [currentPage, setCurrentPage] = useState(0); // current page number
 
   const {
     data: dataEvents,
@@ -36,31 +45,32 @@ const Events = () => {
     makeRequestEvents("events");
   }, []);
 
-  const [category, setCategory] = useState("");
-  const currentDate = new Date();
-  const [itemsPerPage, setItemsPerPage] = useState(9); // amount of news to show per page
-  const [currentPage, setCurrentPage] = useState(0); // current page number
-
   return (
     <section>
       {error && <Error />}
       {loading && <Loader />}
-      <div className="pt-40 ">
+      <div className=" pt-40">
         {data && (
-          <div key={data._id} className="md:container p-5 md:p-0 text-center md:text-none">
+          <div
+            key={data._id}
+            className="md:container md:p-0 md:text-none p-5 text-center"
+          >
             <Title headline="Events" />
             <h1 className="md:text-3xl text-2xl font-bold">{data[6].title}</h1>
-            <div className="md:flex items-center justify-center md:py-5 py-3">
+            <div className="md:flex md:py-5 items-center justify-center py-3">
               <div>
-                <ul className="flex justify-evenly md:text-base text-xs">
+                <ul className="justify-evenly md:text-base flex text-xs">
                   {dataEventCategory &&
                     dataEventCategory
-                      .slice()
+                      .slice(
+                        currentPage * itemsPerPage,
+                        currentPage * itemsPerPage + itemsPerPage
+                      )
                       .reverse()
                       .map((ec) => (
                         <li
                           onClick={() => setCategory(ec.category)}
-                          className="hover:text-primary mx-2 hover:border-b-2 border-dim-gray cursor-pointer"
+                          className="hover:text-primary hover:border-b-2 border-dim-gray mx-2 cursor-pointer"
                           key={ec._id}
                         >
                           {ec.category}
@@ -69,7 +79,7 @@ const Events = () => {
                 </ul>
               </div>
             </div>
-            <div className="flex flex-wrap md:m-4">
+            <div className="md:m-4 flex flex-wrap">
               {dataEvents &&
                 dataEvents
 
@@ -77,7 +87,11 @@ const Events = () => {
                   .filter(
                     (e) => category === "" || e.category.category === category
                   )
-                  .sort((a, b) => new Date(a.evendate).getTime() - new Date(b.eventdate).getTime())
+                  .sort(
+                    (a, b) =>
+                      new Date(a.evendate).getTime() -
+                      new Date(b.eventdate).getTime()
+                  )
                   .reverse()
                   .map((c) => {
                     return (
@@ -93,7 +107,7 @@ const Events = () => {
                             />
                           </div>
                         </Link>
-                        <div className="flex md:flex-none flex-wrap md:text-base text-sm">
+                        <div className="md:flex-none md:text-base flex flex-wrap text-sm">
                           <time className="text-primary lowercase">
                             {" "}
                             {new Date(c.eventdate).toLocaleDateString("dk-DA", {
@@ -108,17 +122,58 @@ const Events = () => {
                             | Målgruppe: {c.category.category}
                           </p>
                         </div>
-                        <div className="flex md:pb-0 pb-10">
-                          <h3 className="md:text-xl text-lg font-bold">{c.title}</h3>
+                        <div className="md:pb-0 flex pb-10">
+                          <h3 className="md:text-xl text-lg font-bold">
+                            {c.title}
+                          </h3>
                         </div>
                       </article>
                     );
                   })}
             </div>
+            {/* Pagination Prev and Next with number of pages  */}
+            {data && (
+              <div className="white-space container">
+                <button
+                  className=" px-4 py-2 text-black bg-white border-2 border-gray-200 rounded-md"
+                  disabled={currentPage <= 0}
+                  onClick={() => {
+                    setCurrentPage(currentPage - 1);
+                  }}
+                >
+                  <FaArrowLeft/>
+                </button>
+
+                {[...Array(Math.ceil(data.length / itemsPerPage))].map(
+                  (x, index) => (
+                    <button
+                      className={`bg-white border-2 border-safety-orange-blaze-orange text-secondary rounded-md m-2 px-4 py-2 
+      ${index === currentPage ? "bg-blue-200" : null}`}
+                      onClick={() => setCurrentPage(index)}
+                      key={index}
+                    >
+                      {index + 1}
+                    </button>
+                  )
+                )}
+
+                <button
+                  className="px-4 py-2 m-2 text-black bg-white border-2 border-gray-200 rounded-md"
+                  disabled={
+                    currentPage >= Math.ceil(data.length / itemsPerPage) - 1
+                  }
+                  onClick={() => {
+                    setCurrentPage(currentPage + 1);
+                  }}
+                >
+                  <FaArrowRight/>
+                </button>
+              </div>
+            )}
           </div>
         )}
         <div className="md:container">
-        < Sponsor />
+          <Sponsor />
         </div>
         <BlivenOs />
       </div>

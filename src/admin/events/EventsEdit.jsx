@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import useRequestData from "../../hooks/useRequestData";
 import Error from "../../components/Error";
 import Loader from "../../components/Loader";
-import useRequestData from "../../hooks/useRequestData";
 
 //quill
 import ReactQuill from "react-quill";
@@ -16,7 +16,12 @@ const EventsEdit = () => {
   const { data, loading, error, makeRequest } = useRequestData();
 
   // PUT (to update the news)
-  const { data: dataEdit, loading: loadingEdit, error: errorEdit, makeRequest: makeRequestEdit } = useRequestData();
+  const {
+    data: dataEdit,
+    loading: loadingEdit,
+    error: errorEdit,
+    makeRequest: makeRequestEdit,
+  } = useRequestData();
 
   // reference to quill
   const refQuill = useRef();
@@ -81,7 +86,7 @@ const EventsEdit = () => {
                 defaultValue={data?.title}
                 type="text"
                 placeholder="Titel"
-                className="mt-1 p-2 w-full border rounded"
+                className="w-full p-2 mt-1 border rounded"
                 required
               />
             </label>
@@ -112,12 +117,12 @@ const EventsEdit = () => {
           <div className="mb-4">
             <label className="block">
               Vælg evt. en ny billede (overskriver det nuværende billede)
-              <input name="image" type="file" className="mt-1 p-2 w-full" />
+              <input name="image" type="file" className="w-full p-2 mt-1" />
             </label>
           </div>
 
           <button
-            className="bg-primary text-white cursor-pointer p-2 rounded"
+            className="bg-primary p-2 text-white rounded cursor-pointer"
             type="submit"
           >
             Submit
